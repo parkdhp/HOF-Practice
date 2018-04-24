@@ -220,4 +220,70 @@ var parseCSV = people => {
   });
 }
 
-console.log(parseCSV(peopleCSV));
+
+1.Disclaimer: This problem is very difficult! Write a function called map2 that accepts two
+ arrays and a function as arguments, and constructs a new array by invoking its function 
+ argument on the elements of both arrays, e.g.:
+
+
+function each(coll1, coll2, f) {
+  if (Array.isArray(coll1) && Array.isArray(coll2) ) {
+    for (var i = 0; i < coll1.length; i++) {
+      f(coll1[i], coll2[i], i);
+    }
+  } else {
+    for (var key in coll1) {
+      f(coll1[key], coll2[key], key);
+    }
+  }
+}
+
+function map2(arr1, arr2, f) {
+  if(Array.isArray(arr1) && Array.isArray(arr2)) {
+    var acc = [];
+  } else {
+    acc = {};
+  }
+  
+  each(arr1, arr2, function(element1, element2, i) {
+    acc[i] = (f(element1, element2));
+  });
+  return acc;
+}
+
+map2([1, 2, 3], [4, 5, 6], function(a, b) {return a * b;});
+// => [4, 10, 18]
+
+//{a:2, b:3, c:4}, {a:2, b:3, c:4},
+
+
+//2.Now, write a function called mapN that accepts an arbitrary number of arrays and a n-ary function as arguments, and constructs a new array by combining the elements of all the arrays, e.g.:
+
+function each(coll1, coll2, coll3, f) {
+  if (Array.isArray(coll1) && Array.isArray(coll2) && Array.isArray(coll3) ) {
+    for (var i = 0; i < coll1.length; i++) {
+      f(coll1[i], coll2[i], coll3[i]);
+    }
+  //} else {
+  //  for (var key in coll) {
+  //    f(coll[key], key);
+  //  }
+  }
+}
+
+
+
+function mapN(arr1, arr2, arr3, f) {
+var acc = [];
+  each(arr1, arr2, arr3, function(element1, element2, element3) {
+    acc.push(f(element1, element2, element3));
+  });
+  return acc; 
+}
+
+mapN([1, 2, 3], [4, 5, 6], [2, 2, 2], function(a, b, c) {
+  return (a * b) + c;
+});
+// => [6, 12, 20]
+
+//mapN([1, 2, 3], function(x) { return x * x; }) // => [1, 4, 9]
